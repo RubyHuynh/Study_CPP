@@ -42,6 +42,7 @@
                         </br>
                         https://www.geeksforgeeks.org/pointers-vs-references-cpp/
                     </li>
+                    <li>enumerations: enum class XYZ { A, B, C}; XYZ::A </li>
                 </ol>
             </li>
         </ol>

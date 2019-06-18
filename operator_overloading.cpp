@@ -40,6 +40,21 @@ std::ostream& operator << (std::ostream& ostr, Complex& obj) {
     return ostr;
 }
 
+/*
+T& T::operator++() // pre-increment, return *this by reference
+{
+ // perform operation
+
+
+ return *this;
+}
+
+T T::operator++(int) // post-increment, return unmodified copy by value
+{
+     T copy(*this);
+     ++(*this); // or operator++();
+     return copy;
+}*/
 int main() {
     Complex c1(1,2), c2(3,4), c3, c4;
     std::cout << "c1 real=" << c1.getReal() << " sum= "<< c1.getVal() << std::endl;

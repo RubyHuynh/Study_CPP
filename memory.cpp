@@ -3,11 +3,11 @@
 using namespace std;
 
 int main() {
-	int*** eat = nullptr, r = 1000000;
+	int*** eat = nullptr, r = 1000;
 	// leak cheak
 	while (r > 0) {
 		eat = new int**[1024];
-		if(r%2) delete eat; // RES (or SZ) is 1.9gb, compare to 2.2gb
+		if(r%2) delete[] eat; // RES (or SZ) is 1.9gb, compare to 2.2gb
 		cout<< r << endl;
 		r--;
 	}
@@ -24,9 +24,9 @@ int main() {
 	int* j = new int;
 	int* k = new int[40];
 
-	delete(k);
-	free(j);
-	delete(i);
+	//delete(k);
+	//free(j);
+	//delete(i);
 
 	return 0;
 }
