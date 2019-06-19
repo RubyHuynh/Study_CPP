@@ -50,6 +50,12 @@
     <li>Common Bug, Note</br>
         <ol>
             <li> RES  --  Resident Memory Size (KiB) is The non-swapped physical memory a task is using. </li>
+            <li> WATCHDOG </li>
+            <li> http://www.embeddedsystemonline.com/programming-languages/cplusplus/program-to-track-memory-allocations-in-c-or-c
+                </br>
+                new operator: </br>
+                 https://gcc.gnu.org/viewcvs/gcc/trunk/libstdc%2B%2B-v3/libsupc%2B%2B/new_op.cc?view=markup
+            </li>
         </ol>
     </li>
 </ol>
