@@ -1,18 +1,38 @@
 #include <ostream>
 #include <iostream>
-#include "replacement_new_del.hpp"
+//#include "replacement_new_del.hpp"
 
 using namespace std;
+
+int tt = 0;
+void* mymalloc(size_t s)
+{
+   tt++;
+   return malloc(s);
+}
+
+void myfree(void *obj)
+{
+   tt--;
+   free(obj);
+}
 
 struct tempClass {
     int* a;
     int b;
 };
+
+#define malloc(x) mymalloc(x)
+#define free(x) myfree(x)
 int main() {
     int* x = new int;
     tempClass* y = new tempClass;
     y->a = new int;
-    cout << &x;
+    // playing with interpositioning malloc, free
+    int* z = (int*) malloc(19);
+    int* zz = (int*) malloc(19);
+    //free(z);
+    cout << tt;
     return 0;
 }
 

@@ -1,1 +1,1 @@
-basics.o: basics.cpp
+obj/basics.o: basics.cpp

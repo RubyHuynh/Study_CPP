@@ -9,21 +9,18 @@ ASMS     := $(SRCS:$(SRCDIR)/%.cpp=$(ASMDIR)/%.s)
 DEPS     := $(SRCS:$(SRCDIR)/%.cpp=$(DEPDIR)/%.d)
 TREE     := $(patsubst %/,%,$(dir $(OBJS)))
 CPPFLAGS  = -MMD -MP -MF $(@:$(OBJDIR)/%.o=$(DEPDIR)/%.d)
+MKDIR_PS := $(shell mkdir -p asm obj dep)
 
-.PHONY: all clean
+#TEE      := mkdir -p $(@:$(OBJDIR)%) $(@:$(DEPDIR)%) $(@:$(ASMDIR)%)
+.PHONY: $(MKDIR_PS) all clean
 
-all: $(OBJS)
+all: $(MKDIR_PS) $(OBJS)
 
+ # -masm=intel
 .SECONDEXPANSION:
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $$(@D)
-	$(CC) $(CXXFLAGS) -S $< -o $(ASMDIR)/$*.s $(INCLUDE_PATHS) # -masm=intel
+	$(CC) $(CXXFLAGS) -S $< -o $(ASMDIR)/$*.s $(INCLUDE_PATHS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
-
-
-$(TREE):
-	mkdir -p $@
-	mkdir -p $(@:$(OBJDIR)%=$(DEPDIR)%)
-
 
 clean:
 	rm -r $(OBJDIR)/*.* $(DEPDIR)/*.* $(ASMDIR)/*.*
