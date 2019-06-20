@@ -48,8 +48,9 @@
                         <ol>
                             <li>throw exception_type{"log"}</li>
                             <li>invariant, try catch(err)</li>
-                            <li>static_assert</li>
+                            <li>static_assert (on compile, to check const type)</li>
                         </ol>
+                        C++ runtime cannot catch Floating Point Exception, must do it manually :|
                     </li>
                 </ol>
             </li>
