@@ -43,6 +43,14 @@
                         https://www.geeksforgeeks.org/pointers-vs-references-cpp/
                     </li>
                     <li>enumerations: enum class XYZ { A, B, C}; XYZ::A </li>
+                    <li>namespace mycode { int main() {}} mycode::main()</li>
+                    <li>Error handlings, pg.55 </br>
+                        <ol>
+                            <li>throw exception_type{"log"}</li>
+                            <li>invariant, try catch(err)</li>
+                            <li>static_assert</li>
+                        </ol>
+                    </li>
                 </ol>
             </li>
         </ol>
