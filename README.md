@@ -54,6 +54,11 @@
                     </li>
                 </ol>
             </li>
+            <li> Abstract, virtual x() = 0; (pure virtual) </br>
+                Class hierarchy offers:</br>
+                    - interface inheritance </br>
+                    - implementation inheritance</br>
+            </li>
         </ol>
     </li>
     <li>Common Bug, Note</br>
@@ -65,6 +70,7 @@
                 new operator: </br>
                  https://gcc.gnu.org/viewcvs/gcc/trunk/libstdc%2B%2B-v3/libsupc%2B%2B/new_op.cc?view=markup
             </li>
+            <li>TODO generate web pages & rest services from C++ class</li>
         </ol>
     </li>
 </ol>

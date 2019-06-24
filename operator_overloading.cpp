@@ -9,7 +9,10 @@ private:
     int _real, _img;
 
 public:
-    Complex(int r = 10, int i= 20) {
+    Complex() : Complex(30, 20){
+    }
+
+    Complex(int r, int i=10) {
         _real = r;
         _img = i;
     }
@@ -56,9 +59,10 @@ T T::operator++(int) // post-increment, return unmodified copy by value
      return copy;
 }*/
 int main() {
-    Complex c1(1,2), c2(3,4), c3, c4;
+    Complex c1(1,2), c2(3,4), c3, c4, *c5 = new Complex;
     std::cout << "c1 real=" << c1.getReal() << " sum= "<< c1.getVal() << std::endl;
     std::cout << "c2 real=" << c2.getReal() << " sum= "<< c2.getVal() << std::endl;
+    std::cout << "c5 real=" << c5->getReal() << " sum= "<< c5->getVal() << std::endl;
     std::cout << "=========Begin playing" << std::endl;
     c3 = c1 + c2;
     std::cout << c3;
