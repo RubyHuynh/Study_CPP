@@ -7,12 +7,40 @@ _ZStL19piecewise_construct:
 	.zero	1
 	.local	_ZStL8__ioinit
 	.comm	_ZStL8__ioinit,1,1
+	.section	.text._ZN7ComplexC2Ev,"axG",@progbits,_ZN7ComplexC5Ev,comdat
+	.align 2
+	.weak	_ZN7ComplexC2Ev
+	.type	_ZN7ComplexC2Ev, @function
+_ZN7ComplexC2Ev:
+.LFB1537:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	movq	-8(%rbp), %rax
+	movl	$20, %edx
+	movl	$30, %esi
+	movq	%rax, %rdi
+	call	_ZN7ComplexC1Eii
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1537:
+	.size	_ZN7ComplexC2Ev, .-_ZN7ComplexC2Ev
+	.weak	_ZN7ComplexC1Ev
+	.set	_ZN7ComplexC1Ev,_ZN7ComplexC2Ev
 	.section	.text._ZN7ComplexC2Eii,"axG",@progbits,_ZN7ComplexC5Eii,comdat
 	.align 2
 	.weak	_ZN7ComplexC2Eii
 	.type	_ZN7ComplexC2Eii, @function
 _ZN7ComplexC2Eii:
-.LFB1537:
+.LFB1540:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -33,7 +61,7 @@ _ZN7ComplexC2Eii:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1537:
+.LFE1540:
 	.size	_ZN7ComplexC2Eii, .-_ZN7ComplexC2Eii
 	.weak	_ZN7ComplexC1Eii
 	.set	_ZN7ComplexC1Eii,_ZN7ComplexC2Eii
@@ -45,10 +73,10 @@ _ZN7ComplexC2Eii:
 	.weak	_ZN7ComplexD2Ev
 	.type	_ZN7ComplexD2Ev, @function
 _ZN7ComplexD2Ev:
-.LFB1540:
+.LFB1543:
 	.cfi_startproc
 	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
-	.cfi_lsda 0x1b,.LLSDA1540
+	.cfi_lsda 0x1b,.LLSDA1543
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
@@ -69,16 +97,16 @@ _ZN7ComplexD2Ev:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1540:
+.LFE1543:
 	.globl	__gxx_personality_v0
 	.section	.gcc_except_table._ZN7ComplexD2Ev,"aG",@progbits,_ZN7ComplexD5Ev,comdat
-.LLSDA1540:
+.LLSDA1543:
 	.byte	0xff
 	.byte	0xff
 	.byte	0x1
-	.uleb128 .LLSDACSE1540-.LLSDACSB1540
-.LLSDACSB1540:
-.LLSDACSE1540:
+	.uleb128 .LLSDACSE1543-.LLSDACSB1543
+.LLSDACSB1543:
+.LLSDACSE1543:
 	.section	.text._ZN7ComplexD2Ev,"axG",@progbits,_ZN7ComplexD5Ev,comdat
 	.size	_ZN7ComplexD2Ev, .-_ZN7ComplexD2Ev
 	.weak	_ZN7ComplexD1Ev
@@ -88,7 +116,7 @@ _ZN7ComplexD2Ev:
 	.weak	_ZN7Complex6getValEv
 	.type	_ZN7Complex6getValEv, @function
 _ZN7Complex6getValEv:
-.LFB1542:
+.LFB1545:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -105,14 +133,14 @@ _ZN7Complex6getValEv:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1542:
+.LFE1545:
 	.size	_ZN7Complex6getValEv, .-_ZN7Complex6getValEv
 	.section	.text._ZN7Complex7getRealEv,"axG",@progbits,_ZN7Complex7getRealEv,comdat
 	.align 2
 	.weak	_ZN7Complex7getRealEv
 	.type	_ZN7Complex7getRealEv, @function
 _ZN7Complex7getRealEv:
-.LFB1543:
+.LFB1546:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -126,14 +154,14 @@ _ZN7Complex7getRealEv:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1543:
+.LFE1546:
 	.size	_ZN7Complex7getRealEv, .-_ZN7Complex7getRealEv
 	.section	.text._ZN7ComplexplERKS_,"axG",@progbits,_ZN7ComplexplERKS_,comdat
 	.align 2
 	.weak	_ZN7ComplexplERKS_
 	.type	_ZN7ComplexplERKS_, @function
 _ZN7ComplexplERKS_:
-.LFB1544:
+.LFB1547:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -148,10 +176,8 @@ _ZN7ComplexplERKS_:
 	movq	%rax, -8(%rbp)
 	xorl	%eax, %eax
 	movq	-24(%rbp), %rax
-	movl	$20, %edx
-	movl	$10, %esi
 	movq	%rax, %rdi
-	call	_ZN7ComplexC1Eii
+	call	_ZN7ComplexC1Ev
 	movq	-32(%rbp), %rax
 	movl	(%rax), %edx
 	movq	-24(%rbp), %rax
@@ -167,14 +193,14 @@ _ZN7ComplexplERKS_:
 	movq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	xorq	%fs:40, %rcx
-	je	.L9
+	je	.L10
 	call	__stack_chk_fail@PLT
-.L9:
+.L10:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1544:
+.LFE1547:
 	.size	_ZN7ComplexplERKS_, .-_ZN7ComplexplERKS_
 	.section	.rodata
 .LC1:
@@ -183,7 +209,7 @@ _ZN7ComplexplERKS_:
 	.globl	_ZlsRSoR7Complex
 	.type	_ZlsRSoR7Complex, @function
 _ZlsRSoR7Complex:
-.LFB1545:
+.LFB1548:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -218,7 +244,7 @@ _ZlsRSoR7Complex:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1545:
+.LFE1548:
 	.size	_ZlsRSoR7Complex, .-_ZlsRSoR7Complex
 	.section	.rodata
 .LC2:
@@ -228,30 +254,32 @@ _ZlsRSoR7Complex:
 .LC4:
 	.string	"c2 real="
 .LC5:
-	.string	"=========Begin playing"
+	.string	"c5 real="
 .LC6:
-	.string	"c3 real="
+	.string	"=========Begin playing"
 .LC7:
-	.string	" sum="
+	.string	"c3 real="
 .LC8:
-	.string	"c4 real="
+	.string	" sum="
 .LC9:
+	.string	"c4 real="
+.LC10:
 	.string	"=========End playing"
 	.text
 	.globl	main
 	.type	main, @function
 main:
-.LFB1546:
+.LFB1549:
 	.cfi_startproc
 	.cfi_personality 0x9b,DW.ref.__gxx_personality_v0
-	.cfi_lsda 0x1b,.LLSDA1546
+	.cfi_lsda 0x1b,.LLSDA1549
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	pushq	%rbx
-	subq	$56, %rsp
+	subq	$72, %rsp
 	.cfi_offset 3, -24
 	movq	%fs:40, %rax
 	movq	%rax, -24(%rbp)
@@ -267,18 +295,20 @@ main:
 	movq	%rax, %rdi
 	call	_ZN7ComplexC1Eii
 	leaq	-48(%rbp), %rax
-	movl	$20, %edx
-	movl	$10, %esi
 	movq	%rax, %rdi
-	call	_ZN7ComplexC1Eii
+	call	_ZN7ComplexC1Ev
 	leaq	-40(%rbp), %rax
-	movl	$20, %edx
-	movl	$10, %esi
 	movq	%rax, %rdi
-	call	_ZN7ComplexC1Eii
+	call	_ZN7ComplexC1Ev
+	movl	$8, %edi
+.LEHB0:
+	call	_Znwm@PLT
+	movq	%rax, %rbx
+	movq	%rbx, %rdi
+	call	_ZN7ComplexC1Ev
+	movq	%rbx, -72(%rbp)
 	leaq	.LC2(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
-.LEHB0:
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rbx
 	leaq	-64(%rbp), %rax
@@ -330,6 +360,31 @@ main:
 	leaq	.LC5(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
+	movq	%rax, %rbx
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN7Complex7getRealEv
+	movl	%eax, %esi
+	movq	%rbx, %rdi
+	call	_ZNSolsEi@PLT
+	leaq	.LC3(%rip), %rsi
+	movq	%rax, %rdi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
+	movq	%rax, %rbx
+	movq	-72(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN7Complex6getValEv
+	movl	%eax, %esi
+	movq	%rbx, %rdi
+	call	_ZNSolsEi@PLT
+	movq	%rax, %rdx
+	movq	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GOTPCREL(%rip), %rax
+	movq	%rax, %rsi
+	movq	%rdx, %rdi
+	call	_ZNSolsEPFRSoS_E@PLT
+	leaq	.LC6(%rip), %rsi
+	leaq	_ZSt4cout(%rip), %rdi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rdx
 	movq	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GOTPCREL(%rip), %rax
 	movq	%rax, %rsi
@@ -350,7 +405,7 @@ main:
 	movq	%rax, %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZlsRSoR7Complex
-	leaq	.LC6(%rip), %rsi
+	leaq	.LC7(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rbx
@@ -360,7 +415,7 @@ main:
 	movl	%eax, %esi
 	movq	%rbx, %rdi
 	call	_ZNSolsEi@PLT
-	leaq	.LC7(%rip), %rsi
+	leaq	.LC8(%rip), %rsi
 	movq	%rax, %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rbx
@@ -390,7 +445,7 @@ main:
 	movq	%rax, %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZlsRSoR7Complex
-	leaq	.LC8(%rip), %rsi
+	leaq	.LC9(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rbx
@@ -400,7 +455,7 @@ main:
 	movl	%eax, %esi
 	movq	%rbx, %rdi
 	call	_ZNSolsEi@PLT
-	leaq	.LC7(%rip), %rsi
+	leaq	.LC8(%rip), %rsi
 	movq	%rax, %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rbx
@@ -415,7 +470,7 @@ main:
 	movq	%rax, %rsi
 	movq	%rdx, %rdi
 	call	_ZNSolsEPFRSoS_E@PLT
-	leaq	.LC9(%rip), %rsi
+	leaq	.LC10(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rdx
@@ -440,9 +495,9 @@ main:
 	movl	%ebx, %eax
 	movq	-24(%rbp), %rcx
 	xorq	%fs:40, %rcx
-	je	.L15
-	jmp	.L17
-.L16:
+	je	.L16
+	jmp	.L18
+.L17:
 	movq	%rax, %rbx
 	leaq	-40(%rbp), %rax
 	movq	%rax, %rdi
@@ -461,37 +516,37 @@ main:
 .LEHB1:
 	call	_Unwind_Resume@PLT
 .LEHE1:
-.L17:
+.L18:
 	call	__stack_chk_fail@PLT
-.L15:
-	addq	$56, %rsp
+.L16:
+	addq	$72, %rsp
 	popq	%rbx
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1546:
+.LFE1549:
 	.section	.gcc_except_table,"a",@progbits
-.LLSDA1546:
+.LLSDA1549:
 	.byte	0xff
 	.byte	0xff
 	.byte	0x1
-	.uleb128 .LLSDACSE1546-.LLSDACSB1546
-.LLSDACSB1546:
-	.uleb128 .LEHB0-.LFB1546
+	.uleb128 .LLSDACSE1549-.LLSDACSB1549
+.LLSDACSB1549:
+	.uleb128 .LEHB0-.LFB1549
 	.uleb128 .LEHE0-.LEHB0
-	.uleb128 .L16-.LFB1546
+	.uleb128 .L17-.LFB1549
 	.uleb128 0
-	.uleb128 .LEHB1-.LFB1546
+	.uleb128 .LEHB1-.LFB1549
 	.uleb128 .LEHE1-.LEHB1
 	.uleb128 0
 	.uleb128 0
-.LLSDACSE1546:
+.LLSDACSE1549:
 	.text
 	.size	main, .-main
 	.type	_Z41__static_initialization_and_destruction_0ii, @function
 _Z41__static_initialization_and_destruction_0ii:
-.LFB2035:
+.LFB2038:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -502,9 +557,9 @@ _Z41__static_initialization_and_destruction_0ii:
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	.L20
+	jne	.L21
 	cmpl	$65535, -8(%rbp)
-	jne	.L20
+	jne	.L21
 	leaq	_ZStL8__ioinit(%rip), %rdi
 	call	_ZNSt8ios_base4InitC1Ev@PLT
 	leaq	__dso_handle(%rip), %rdx
@@ -512,17 +567,17 @@ _Z41__static_initialization_and_destruction_0ii:
 	movq	_ZNSt8ios_base4InitD1Ev@GOTPCREL(%rip), %rax
 	movq	%rax, %rdi
 	call	__cxa_atexit@PLT
-.L20:
+.L21:
 	nop
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE2035:
+.LFE2038:
 	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
 	.type	_GLOBAL__sub_I__ZlsRSoR7Complex, @function
 _GLOBAL__sub_I__ZlsRSoR7Complex:
-.LFB2036:
+.LFB2039:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -536,7 +591,7 @@ _GLOBAL__sub_I__ZlsRSoR7Complex:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE2036:
+.LFE2039:
 	.size	_GLOBAL__sub_I__ZlsRSoR7Complex, .-_GLOBAL__sub_I__ZlsRSoR7Complex
 	.section	.init_array,"aw"
 	.align 8
