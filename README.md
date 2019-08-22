@@ -28,7 +28,7 @@
                     <li>"auto" type.</li>
                     <li>const (validate at runtime), constexpr (at compile time).</li>
                     <li>variable can be defined on the fly. (but Stack space is reserved at the beginning, doesn't it??).</li>
-                    <li>the null pointer: "nullptr" is used in C++, be careful in comparing C-functions which return "NULL" or 0.</li>
+                    <li>the null pointer: "nullptr" (all zero 0) is used in C++, be careful in comparing C-functions which return "NULL (void*)0" or 0.</li>
                     <li>"reference": no need to use "*" to access the value the reference refer to. Can only be referred at initialize.
                         </br>
                         References are less powerful than pointers
@@ -58,6 +58,18 @@
                 Class hierarchy offers:</br>
                     - interface inheritance </br>
                     - implementation inheritance</br>
+            </li>
+            <!-- part 2, basic-->
+            <li> <b>Basic facilities</b> </br>
+                6. Types, keywords, initialization </br>
+                    - X a1{v}; // list initialization does not allow arrowing (char to int, not int to char, etc) </br>
+                    - X a2 = {v}; X a3 = v; // C style; for auto var, </br>
+                    - X a4(v); // constructor, not supported by all standard types (e.g std::string) </br>
+                    - auto x; </br>
+                    - dectltype </br> //template<class T, class U> auto operator+(const Matrix<T>& a, const Matrix<U>& b) −> Matrix<decltype(T{}+U{}) </br>
+                    - life time: auto, static, free store, temporary object, thread_local (TLS/TSpecifiedS) </br>
+
+
             </li>
         </ol>
     </li>
