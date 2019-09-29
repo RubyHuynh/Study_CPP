@@ -1,0 +1,1 @@
+obj/general_state_start_stop.o: general_state_start_stop.cpp

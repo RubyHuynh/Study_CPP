@@ -3,9 +3,7 @@ OBJDIR := obj
 DEPDIR := dep
 ASMDIR := asm
 
-#SRCS     := $(shell find $(SRCDIR) -name "*.cpp")
-SRCS := $(wildcard $(SRCDIR)/*.cpp)
-SRCS := $(filter-out $(SRCDIR)/state_pattern/*.cpp, $(SRCS))
+SRCS     := $(shell find $(SRCDIR) -name "*.cpp")
 OBJS     := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 ASMS     := $(SRCS:$(SRCDIR)/%.cpp=$(ASMDIR)/%.s)
 DEPS     := $(SRCS:$(SRCDIR)/%.cpp=$(DEPDIR)/%.d)
