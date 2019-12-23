@@ -1,4 +1,4 @@
-	.file	"error_handlings.cpp"
+	.file	"z_no_2ndswitch_main.cpp"
 	.text
 	.section	.rodata
 	.type	_ZStL19piecewise_construct, @object
@@ -11,23 +11,56 @@ _ZStL19piecewise_construct:
 	.globl	main
 	.type	main, @function
 main:
-.LFB1518:
+.LFB1525:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
+	subq	$32, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movl	$1, -20(%rbp)
+	movl	$2, -16(%rbp)
+	movl	$3, -12(%rbp)
+	movl	$0, -24(%rbp)
+.L7:
+	movl	-24(%rbp), %eax
+	cltq
+	cmpq	$2, %rax
+	ja	.L2
+	cmpl	$2, -24(%rbp)
+	je	.L10
+	cmpl	$3, -24(%rbp)
+	je	.L11
+	cmpl	$1, -24(%rbp)
+	jmp	.L6
+.L10:
+	nop
+	jmp	.L6
+.L11:
+	nop
+.L6:
+	addl	$1, -24(%rbp)
+	jmp	.L7
+.L2:
 	movl	$0, %eax
-	popq	%rbp
+	movq	-8(%rbp), %rdx
+	xorq	%fs:40, %rdx
+	je	.L9
+	call	__stack_chk_fail@PLT
+.L9:
+	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1518:
+.LFE1525:
 	.size	main, .-main
 	.type	_Z41__static_initialization_and_destruction_0ii, @function
 _Z41__static_initialization_and_destruction_0ii:
-.LFB1999:
+.LFB2006:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -38,9 +71,9 @@ _Z41__static_initialization_and_destruction_0ii:
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
 	cmpl	$1, -4(%rbp)
-	jne	.L5
+	jne	.L14
 	cmpl	$65535, -8(%rbp)
-	jne	.L5
+	jne	.L14
 	leaq	_ZStL8__ioinit(%rip), %rdi
 	call	_ZNSt8ios_base4InitC1Ev@PLT
 	leaq	__dso_handle(%rip), %rdx
@@ -48,17 +81,17 @@ _Z41__static_initialization_and_destruction_0ii:
 	movq	_ZNSt8ios_base4InitD1Ev@GOTPCREL(%rip), %rax
 	movq	%rax, %rdi
 	call	__cxa_atexit@PLT
-.L5:
+.L14:
 	nop
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1999:
+.LFE2006:
 	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
 	.type	_GLOBAL__sub_I_main, @function
 _GLOBAL__sub_I_main:
-.LFB2000:
+.LFB2007:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -72,7 +105,7 @@ _GLOBAL__sub_I_main:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE2000:
+.LFE2007:
 	.size	_GLOBAL__sub_I_main, .-_GLOBAL__sub_I_main
 	.section	.init_array,"aw"
 	.align 8
