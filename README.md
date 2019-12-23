@@ -1,5 +1,5 @@
 # study_cpp
-<h1> 2019 switched to a new prj.</h1>
+<h1> 2019 new prj</h1>
 
 <h3><u>Targets:</u></h3>
 <ol>
