@@ -3,7 +3,7 @@
 #include <iostream>
 #include <list>
 #include <boost/foreach.hpp>
-
+#include "book.h"
 int main()
 {
     std::string hello( "Hello, world!" );
@@ -19,5 +19,8 @@ int main()
     {
         std::cout << i <<std::endl;
     }
+
+    Book *book = new Book(970261, "Gravity", "Richard P.McGonnagal", G_SCIENCE, 2001, 5.4);
+   
     return 0;
 }
