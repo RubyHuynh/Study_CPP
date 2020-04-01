@@ -1,3 +1,11 @@
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <iostream>
+#include <sstream>
+
+using namespace boost::archive;
+std::stringstream ss;
+
 #include <typeinfo>
 #include <string>
 #include <boost/fusion/include/sequence.hpp>
@@ -109,28 +117,66 @@ using namespace boost::fusion;
 
 int level_counter = 0;
 
-struct Foo { 
-    int foo1; 
-    char* foo2; 
+class animal
+{
+    public:
+    int legs_;
+    animal() {};
+    animal(int legs) : legs_(legs) {}
+    int legs() const { return legs_; }
+
+    private:
+    friend class boost::serialization::access;
+
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version) { ar & legs_; }
+
 };
-BOOST_FUSION_ADAPT_STRUCT(Foo, (int, foo1) (char*, foo2))
+BOOST_FUSION_ADAPT_STRUCT(animal, (int, legs_))
+class bird : public animal
+{
+    public:
+    std::string name;
+    bool can_fly_;
+    bird(){};
+    bird(int legs, bool can_fly, char* n) :
+        animal(legs), can_fly_(can_fly) {
+            name.assign(n);
+        }
+    bool can_fly() const { return can_fly_; }
 
-struct Bar {
-    double bar1; 
-    typedef Foo Bar_t[2];
-    Bar::Bar_t bar2;
+    private:
+    friend class boost::serialization::access;
+
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+        ar & boost::serialization::base_object<animal>(*this);
+        ar & name;
+        ar & can_fly_;
+    }
+
 };
-BOOST_FUSION_ADAPT_STRUCT(Bar, (double, bar1) (Bar::Bar_t, bar2))
 
-#include "book.h"
-BOOST_FUSION_ADAPT_STRUCT(Book, (int, isbn) (char*, name) (char*, author)  (Genre, type) (int, year) (float, price))
+BOOST_FUSION_ADAPT_STRUCT(bird, (std::string, name) (bool, can_fly_) (int, legs_))
+void save()
+{
+    text_oarchive oa(ss);
+    bird penguin(2, false, "penguin");
+    Reflection<bird>::dump(penguin);
+    oa << penguin;
+}
 
-int main(int argc, char *argv[]) {
-    Bar b = { 7.2, {{ 3, "abcd" },{ 4, "defgh" }} };
-    Reflection<Bar>::dump(b);
+void load()
+{
+    text_iarchive ia(ss);
+    bird penguin;
+    ia >> penguin;
+    Reflection<bird>::dump(penguin);
+}
 
-    Book *book = new Book(202030528, "Gravity", "Richard P.McDennis", G_SCIENCE, 2001, 5.4);
-    Reflection<Book>::dump(*book);
-    
-    return 0;
+int main()
+{
+    save();
+    load();
 }

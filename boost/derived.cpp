@@ -3,20 +3,23 @@
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/vector.hpp>
+#include <boost/foreach.hpp>
 #include <iostream>
 #include <ostream>
+#include <sstream>
 
 struct Area
 {
     Area(int i):id(i) {}
     int id;
     int code[2];
+    
+    Area() {}
+    ~Area() {};
   private:
-    Area() { } // used only in deserialization
     friend boost::serialization::access;
     template<class Archive>
         void serialize(Archive & ar, unsigned) {
-            std::cout << __PRETTY_FUNCTION__ <<std::endl;
             ar & id;
             ar & code;
         }
@@ -27,7 +30,9 @@ struct List : boost::noncopyable
     std::vector<Area*> areas;
 
     ~List() {
-        //std::for_each(areas.begin(), areas.end(), std::default_delete<Area>());
+        BOOST_FOREACH(Area* a, areas) {
+            delete a;
+        }
     }
 
   private:
@@ -47,11 +52,11 @@ struct M_Character {
         void serialize(Archive & /*ar*/, unsigned) { }
 };
 
-struct GameObject : M_Character, boost::noncopyable
+struct Game : M_Character, boost::noncopyable
 {
     Area* area;
 
-    GameObject(Area* area = NULL) : area(area) {}
+    Game(Area* area = NULL) : area(area) {}
 
   private:
     friend boost::serialization::access;
@@ -64,27 +69,27 @@ struct GameObject : M_Character, boost::noncopyable
         }
 };
 
-BOOST_CLASS_EXPORT_GUID(GameObject, "GameObject")
-#include <sstream>
+BOOST_CLASS_EXPORT_GUID(Game, "Game")
 
-        struct World : boost::noncopyable
-        {
-            List list;
-            GameObject* the_object;
 
-            World() : the_object(NULL) {}
-            ~World() { delete the_object; }
+struct World : boost::noncopyable
+{
+    List list;
+    Game* game;
 
-        private:
-            friend boost::serialization::access;
-            template<class Archive>
-                void serialize(Archive & ar, unsigned) {
-                    std::cout << __PRETTY_FUNCTION__ <<std::endl;
-            
-                    ar & list;
-                    ar & the_object;
-                }
-        };
+    World() : game(NULL) {}
+    ~World() { delete game; }
+
+private:
+    friend boost::serialization::access;
+    template<class Archive>
+        void serialize(Archive & ar, unsigned) {
+            std::cout << __PRETTY_FUNCTION__ <<std::endl;
+    
+            ar & list;
+            ar & game;
+        }
+};
 
 std::string serialize(World const& w)
 {
@@ -95,7 +100,6 @@ std::string serialize(World const& w)
 
     return ss.str();
 }
-
 void deserialize(std::string const& input, World& w)
 {
     std::stringstream ss(input);
@@ -111,14 +115,14 @@ int main()
         world.list.areas.push_back(new Area(i));
 
     // build original obj
-    world.the_object = new GameObject(world.list.areas[3]); // sharing the area pointer from the list
+    world.game = new Game(world.list.areas[3]); // sharing the area pointer from the list
 
     std::string const serialized = serialize(world);
     std::cout << serialized << '\n';
     std::cout << "-------------------------------------------------\n";
 
-    // create roundtrip
-    World roundtrip;
-    deserialize(serialized, roundtrip);
-    std::cout << "EQUAL? " << std::boolalpha << (serialized == serialize(roundtrip)) << "\n";
+    // create world2
+    World world2;
+    deserialize(serialized, world2);
+    std::cout << "EQUAL? " << std::boolalpha << (serialized == serialize(world2)) << "\n";
 }

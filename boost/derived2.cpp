@@ -25,9 +25,12 @@ class animal
 class bird : public animal
 {
     public:
+    std::string name;
     bird(){};
-    bird(int legs, bool can_fly) :
-        animal(legs), can_fly_(can_fly) {}
+    bird(int legs, bool can_fly, char* n) :
+        animal(legs), can_fly_(can_fly) {
+            name.assign(n);
+        }
     bool can_fly() const { return can_fly_; }
 
     private:
@@ -37,6 +40,7 @@ class bird : public animal
     void serialize(Archive &ar, const unsigned int version)
     {
         ar & boost::serialization::base_object<animal>(*this);
+        ar & name;
         ar & can_fly_;
     }
 
@@ -46,7 +50,7 @@ class bird : public animal
 void save()
 {
     text_oarchive oa(ss);
-    bird penguin(2, false);
+    bird penguin(2, false, "penguin");
     oa << penguin;
 }
 
@@ -56,6 +60,7 @@ void load()
     bird penguin;
     ia >> penguin;
     std::cout << penguin.legs() << '\n';
+    std::cout << penguin.name.c_str() << '\n';
     std::cout << std::boolalpha << penguin.can_fly() << '\n';
 }
 
