@@ -1,3 +1,11 @@
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <iostream>
+#include <sstream>
+
+using namespace boost::archive;
+std::stringstream ss;
+
 #include <typeinfo>
 #include <string>
 #include <boost/fusion/include/sequence.hpp>
@@ -11,9 +19,7 @@
 #include <stdio.h>
 #include <iostream>
 
-using namespace boost::fusion;
-
-int level_counter = 0;
+extern int level_counter; /* 0, 4, 8, ... */
 struct PrettySpace {
 	static void print() {
 		if (level_counter == 0) std::cout<<std::endl;
@@ -24,7 +30,9 @@ struct PrettySpace {
 	}
 };
 
+using namespace boost::fusion;
 template <typename T2> struct Reflection;
+
 template <typename S, typename N> struct Comma {
 	static inline void comma() { printf(", "); }
 };
@@ -97,8 +105,7 @@ template <typename T2> struct VoidReflection {
 template <typename T2> struct GenericReflection {
 	typedef
 		typename boost::mpl::eval_if<traits::is_sequence<T2>, SeqReflection<T2>,
-		typename boost::mpl::eval_if<boost::is_array<T2>,
-            boost::mpl::identity<ArrReflection<T2> >,VoidReflection<T2> > >
+		typename boost::mpl::eval_if<boost::is_array<T2>,boost::mpl::identity<ArrReflection<T2> >,VoidReflection<T2> > >
 		::type type;
 };
 
@@ -106,27 +113,60 @@ template <typename T2>
 struct Reflection : public GenericReflection<T2>::type {
 };
 
-struct Foo { 
-    int foo1; 
-    char* foo2; 
+using namespace boost::fusion;
+
+int level_counter = 0;
+
+class Animal {
+    public:
+        int legs;
+        std::string name;
+        Animal() {};
+        Animal(int l, char* n) : legs(l) { name.assign(n); }
+    private:
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version) { 
+            ar & legs; 
+            ar & name;
+        }
 };
-BOOST_FUSION_ADAPT_STRUCT(Foo, (int, foo1) (char*, foo2))
 
-struct Bar {
-    double bar1; 
-    typedef Foo Bar_t[2];
-    Bar::Bar_t bar2;
+class Bird : public Animal {
+    public:
+        bool can_fly;
+        Bird(){};
+        Bird(int l, char* n, bool f) : Animal(l, n), can_fly(f) {}
+    private:
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version) {
+            ar & boost::serialization::base_object<Animal>(*this);
+            ar & can_fly;
+        }
 };
-BOOST_FUSION_ADAPT_STRUCT(Bar, (double, bar1) (Bar::Bar_t, bar2))
 
-#include "book.h"
-BOOST_FUSION_ADAPT_STRUCT(Book, (int, isbn) (char*, name) (char*, author)  (Genre, type) (int, year) (float, price))
+BOOST_FUSION_ADAPT_STRUCT(Bird, (std::string, name) (bool, can_fly) (int, legs))
 
-int main(int argc, char *argv[]) {
-    Bar b = { 7.2, {{ 3, "abcd" },{ 4, "defgh" }} };
-    Reflection<Bar>::dump(b);
+void save() {
+    Bird penguin(2, "penguin_ice", false);
+    text_oarchive oa(ss);
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Reflection<Bird>::dump(penguin);
+    oa << penguin;
+}
 
-    Book *book = new Book(202030528, "Gravity", "Richard P.McDennis", G_SCIENCE, 2001, 5.4);
-    Reflection<Book>::dump(*book);    
+void load() {
+    Bird some_bird;
+    text_iarchive ia(ss);
+
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    ia >> some_bird;
+    Reflection<Bird>::dump(some_bird);
+}
+
+int main() {
+    save();
+    load();
     return 0;
 }

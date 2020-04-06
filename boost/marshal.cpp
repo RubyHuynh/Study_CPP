@@ -1,7 +1,12 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp> 
+#include <boost/archive/xml_oarchive.hpp> 
+#include <boost/archive/binary_iarchive.hpp> 
+#include <boost/archive/binary_oarchive.hpp> 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 using namespace boost::archive;
 std::stringstream ss;
@@ -117,66 +122,66 @@ using namespace boost::fusion;
 
 int level_counter = 0;
 
-class animal
-{
+class Animal {
     public:
-    int legs_;
-    animal() {};
-    animal(int legs) : legs_(legs) {}
-    int legs() const { return legs_; }
-
+        int legs;
+        std::string name;
+        Animal() {};
+        Animal(int l, char* n) : legs(l) { name.assign(n); }
     private:
-    friend class boost::serialization::access;
-
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version) { ar & legs_; }
-
-};
-BOOST_FUSION_ADAPT_STRUCT(animal, (int, legs_))
-class bird : public animal
-{
-    public:
-    std::string name;
-    bool can_fly_;
-    bird(){};
-    bird(int legs, bool can_fly, char* n) :
-        animal(legs), can_fly_(can_fly) {
-            name.assign(n);
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version) { 
+            ar & BOOST_SERIALIZATION_NVP(legs); 
+            ar & BOOST_SERIALIZATION_NVP(name);
         }
-    bool can_fly() const { return can_fly_; }
-
-    private:
-    friend class boost::serialization::access;
-
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar & boost::serialization::base_object<animal>(*this);
-        ar & name;
-        ar & can_fly_;
-    }
-
 };
 
-BOOST_FUSION_ADAPT_STRUCT(bird, (std::string, name) (bool, can_fly_) (int, legs_))
-void save()
-{
+class Bird : public Animal {
+    public:
+        bool can_fly;
+        Bird(){};
+        Bird(int l, char* n, bool f) : Animal(l, n), can_fly(f) {}
+    private:
+        friend class boost::serialization::access;
+        template <typename Archive>
+        void serialize(Archive &ar, const unsigned int version) {
+            ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Animal);
+            ar & BOOST_SERIALIZATION_NVP(can_fly);
+        }
+};
+
+BOOST_FUSION_ADAPT_STRUCT(Bird, (std::string, name) (bool, can_fly) (int, legs))
+
+void save() {
+    Bird penguin(2, "penguin_ice", false);
     text_oarchive oa(ss);
-    bird penguin(2, false, "penguin");
-    Reflection<bird>::dump(penguin);
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Reflection<Bird>::dump(penguin);
     oa << penguin;
+
+    std::ofstream file("archive.xml");
+    boost::archive::xml_oarchive oa1(file);
+    oa1 & BOOST_SERIALIZATION_NVP(penguin);
+
 }
 
-void load()
-{
-    text_iarchive ia(ss);
-    bird penguin;
-    ia >> penguin;
-    Reflection<bird>::dump(penguin);
+void load() {
+    Bird some_bird;
+    text_iarchive in(ss);
+
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    // in >> some_bird;
+    
+    std::ifstream file("archive.xml");
+    boost::archive::xml_iarchive in1(file);
+    in1 & BOOST_SERIALIZATION_NVP(some_bird);
+
+    Reflection<Bird>::dump(some_bird);
 }
 
-int main()
-{
+int main() {
     save();
     load();
+    return 0;
 }
