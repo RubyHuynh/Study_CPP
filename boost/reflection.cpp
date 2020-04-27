@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
     Bar b = { 7.2, {{ 3, "abcd" },{ 4, "defgh" }} };
     Reflection<Bar>::dump(b);
 
-    Book *book = new Book(202030528, "Gravity", "Richard P.McDennis", G_SCIENCE, 2001, 5.4);
+    Book *book = new Book(119287862, "Gravitation", "Charles W. Misner, Kip Thorne", G_SCIENCE, 1973, 37.4);
     Reflection<Book>::dump(*book);    
     return 0;
 }

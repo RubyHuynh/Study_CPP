@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE boost_serialization>
+<boost_serialization signature="serialization::archive" version="17">
+<penguin class_id="0" tracking_level="0" version="0">
+	<Animal class_id="1" tracking_level="0" version="0">
+		<legs>2</legs>
+		<name>penguin_ice</name>
+	</Animal>
+	<can_fly>0</can_fly>
+</penguin>
+</boost_serialization>
+
