@@ -94,6 +94,17 @@ template <typename T2> struct VoidReflection {
 		PrettySpace::print();
 	};
 };
+
+template<typename T>
+struct noPointer{
+        typedef T type;
+};
+
+template<typename T>
+struct noPointer<T*> {
+        typedef T type;
+};
+
 template <typename T2> struct PointerReflection {
         typedef PointerReflection<T2> type;
         static void dump(T2   & t) {
