@@ -95,14 +95,18 @@ template <typename T2> struct VoidReflection {
 	};
 };
 template <typename T2> struct PointerReflection {
-	typedef PointerReflection<T2> type;
-	static void dump(T2   & t) {
-		int status = 0;
-		const char *realname = abi::__cxa_demangle(typeid(t).name(),0,0,&status);
-		std::cout<<"("<< realname <<")";
-        SeqReflection<T2>::dump(*t);
-		PrettySpace::print();
-	};
+        typedef PointerReflection<T2> type;
+        static void dump(T2   & t) {
+                int status = 0;
+                const char *realname = abi::__cxa_demangle(typeid(t).name(),0,0,&status);
+
+                std::cout<<"("<< realname <<")";
+                if (!boost::is_same<T2, char*>::value) {
+                        static typename noPointer<T2>::type t2 = *t;
+                        Reflection<typename noPointer<T2>::type>::dump(t2);
+                }
+                PrettySpace::print();
+        };
 };
 
 template <typename T2> struct GenericReflection {
@@ -149,7 +153,7 @@ BOOST_FUSION_ADAPT_STRUCT(Bar, (double, bar1) (Bar::Bar_t, bar2)(Foo*, f))
 BOOST_FUSION_ADAPT_STRUCT(Book, (int, isbn) (char*, name) (char*, author)  (Genre, type) (int, year) (float, price))
 
 int main(int argc, char *argv[]) {
-    Bar b = { 7.2, {{ 3, "abcd" },{ 4, "defgh" }}, new Foo()};
+    Bar b = { 7.2, {{ 3, "abcd" },{ 4, "defgh" }}, new Foo(99, "hahha")};
     Reflection<Bar>::dump(b);
 
     Book *book = new Book(202030528, "Gravity", "Richard P.McDennis", G_SCIENCE, 2001, 5.4);
