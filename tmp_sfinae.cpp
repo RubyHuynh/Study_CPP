@@ -29,3 +29,10 @@ int main() {
     // std::cout << sum<char>(x,y) << std::endl;
     return 0;
 }
+
+
+/*
+Y is a dependent name, since its meaning depends on T, which is an unknown parameter.
+Everything that depends directly or indirectly on unknown template parameters is a dependentname. 
+If a dependent name refers to a type, then it must be introduced with the typename keyword.
+*/
