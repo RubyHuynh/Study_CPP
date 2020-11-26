@@ -24,10 +24,17 @@ void iter_swapX(ForwardIterator1 i1, ForwardIterator2 i2) {
 	*i2 = tmp;
 }
 
+template<class ForwardIterator>
+void iter_swapX(ForwardIterator i1, ForwardIterator i2) {
+	/* sometimes faster if the same type? */
+	std::swap(*i1, *i2);
+}
+
+
 int main () {
 	/* swap on int & string */
 	int p1 = 9;
-	int p2 = 3;
+	long p2 = 3;
 	iter_swapX(&p1, &p2);
 	std::cout << p1 <<" "<< p2 <<"\n";
 	
