@@ -41,7 +41,88 @@ public:
 		(*funcA)(999);	
 	}
 };
+
+// eg 2
+template<typename T> 
+struct is_integer {
+	static const bool value = false;
+};
+
+template<>
+struct is_integer<int> {
+	static const bool value = true;
+};
+
+template<bool C>
+struct got {
+	typedef void type;
+};
+
+template<>
+struct got<false> {};
+
+#define only_if(C) typename got<C>::type* = 0
+
+template<typename T>
+void g(T t, only_if(is_integer<T>::value)) {
+	std::cout <<"g() with condition\n";
+};
+
+void g(char t) {
+	std::cout <<"normal g()\n";
+}
+
+// eg3 on return type
+template<typename T, typename S>
+struct get_size {
+	S operator() (const T& t) {
+		std::cout << __PRETTY_FUNCTION__ << "\n";
+		return t.size();
+	}
+	get_size(int) {}
+};
+
+struct get_one {
+	template<typename T>
+	size_t operator()(T& t) {
+		std::cout << __PRETTY_FUNCTION__ << "\n";
+		return 1;
+	}
+	get_one(int) {}
+};
+
+template<typename T>
+get_size<T, typename T::size_type> test(T* t) { //sfinae
+	std::cout << __PRETTY_FUNCTION__ << "\n";
+	return 0;
+}
+
+get_one test(void* v) {
+	std::cout << __PRETTY_FUNCTION__ << "\n";
+	return 0;
+}
+
+template<typename T>
+size_t count(T& t) {
+	std::cout << __PRETTY_FUNCTION__ << "\n";
+	return test(&t)(t);
+}
+
+#include<vector>	
 int main() {
+	std::vector<int> v;
+	std::cout <<"COUNT = " << count(v);
+	std::cout << "\n==========\n";
+	std::string s = std::string("apalachian");	
+	std::cout << "COUNT = " << count(s);
+	std::cout << "\n=========\n";
+	int x= 0;
+	std::cout << "COUNT = " << count(x);	
+	std::cout << "\n======end======\n";
+	g(9);
+	g('a');
+		
+
 	type_id<func>::type a;
 	type_id<func1>::type b;
 	a = doA;
